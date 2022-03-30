@@ -11,7 +11,6 @@ const path_1 = (0, tslib_1.__importDefault)(require("path"));
 const sequence_1 = require("./sequence");
 const authentication_1 = require("@loopback/authentication");
 const authentication_jwt_1 = require("@loopback/authentication-jwt");
-const datasources_1 = require("./datasources");
 class QuickcoApplication extends (0, boot_1.BootMixin)((0, service_proxy_1.ServiceMixin)((0, repository_1.RepositoryMixin)(rest_1.RestApplication))) {
     constructor(options = {}) {
         super(options);
@@ -28,7 +27,7 @@ class QuickcoApplication extends (0, boot_1.BootMixin)((0, service_proxy_1.Servi
         // Mount jwt component
         this.component(authentication_jwt_1.JWTAuthenticationComponent);
         // Bind datasource
-        this.dataSource(datasources_1.Quickco2022DataSource, authentication_jwt_1.UserServiceBindings.DATASOURCE_NAME);
+        // this.dataSource(Quickco2022DataSource, UserServiceBindings.DATASOURCE_NAME);
         this.projectRoot = __dirname;
         // Customize @loopback/boot Booter Conventions here
         this.bootOptions = {
