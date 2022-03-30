@@ -8,7 +8,8 @@ const config = {
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: '111',
+  // password: '111',
+  password: 'wSWTyP3xbs',
   database: 'quickco2022'
 };
 
