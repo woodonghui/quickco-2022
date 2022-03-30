@@ -13,7 +13,8 @@ const config = {
     user: 'root',
     // password: '111',
     password: 'wSWTyP3xbs',
-    database: 'quickco2022'
+    // database: 'quickco2022'
+    database: 'quickcost'
 };
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down
