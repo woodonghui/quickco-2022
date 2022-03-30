@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quick Cost</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="assets/css/font-style.css" rel="stylesheet">
+    <link href="assets/css/flexslider.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="lib/angular-block-ui/dist/angular-block-ui.min.css" />
+
+    <!-- <link href="assets/css/jquery.numpad.css" rel="stylesheet"> -->
+    <!--<script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>-->
+    <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- Google Fonts call. Font Used Open Sans & Raleway -->
+    <!--<link href="//fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">-->
+    <!--<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">-->
+</head>
+
+<body ng-app="App">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">档口管理系统</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/api/sales.html">上报营业额</a></li>
+                    <li><a href="/api/history.html">历史账本</a></li>
+                    <!--<li><a href="/index.html">当月成本</a></li>-->
+                    <li><a href="/api/admin.html">设置</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container body-container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="dash-unit free-grow">
+                    <!--<dtitle>门店管理</dtitle>-->
+                    <!--<hr>-->
+                    <div ng-controller="outletController">
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <table class="table">
+                                    <tr class="header">
+                                        <!--<td>#</td>-->
+                                        <td>门店名</td>
+                                        <td>门店地址</td>
+                                        <td>联系方式</td>
+                                        <td>更改</td>
+                                    </tr>
+                                    <tr ng-repeat='outlet in outlets'>
+                                        <!--<td>{{$index}}</td>-->
+                                        <td>
+                                            {{ outlet.name }}
+                                        </td>
+                                        <td>{{ outlet.address }}</td>
+                                        <td>{{ outlet.contact }}</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-xs" ng-click="edit($index)">修改</button>
+                                            <!--<button class="btn btn-danger btn-xs" ng-click="delete($index)">删除</button>-->
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form form-horizontal">
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">门店名</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="outlet.name" class="form-control" id="" placeholder="门店名">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">门店地址</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="outlet.address" class="form-control" id="" placeholder="门店地址">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">联系方式</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="outlet.contact" class="form-control" id="" placeholder="联系方式">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button ng-click="add()" class="btn btn-default">添加门店</button>
+                                            <button ng-click="save()" class="btn btn-default">更新门店</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="dash-unit free-grow">
+                    <!--<dtitle>供应商管理</dtitle>-->
+                    <!--<hr>-->
+                    <div ng-controller="supplierController">
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <table class="table">
+                                    <tr class="header">
+                                        <!--<td>#</td>-->
+                                        <td>供应商</td>
+                                        <td>联系方式</td>
+                                        <td>GST？</td>
+                                        <td>押账</td>
+                                        <td>操作</td>
+                                    </tr>
+                                    <tr ng-repeat='supplier in suppliers'>
+                                        <!--<td>{{$index}}</td>-->
+                                        <td>
+                                            {{ supplier.name }}
+                                        </td>
+                                        <td>{{ supplier.contact }}</td>
+                                        <td>GST: {{ supplier.gstregistered }}</td>
+                                        <td>{{ supplier.hasterm }}</td>
+                                        <td>
+                                            <!--<button class="btn btn-danger btn-xs" ng-click="delete($index)">删除</button>-->
+                                            <button class="btn btn-danger btn-xs" ng-click="edit($index)">修改</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form form-horizontal">
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">供应商</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="supplier.name" class="form-control" id="" placeholder="供应商">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">联系方式</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="supplier.contact" class="form-control" id="" placeholder="联系方式">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input ng-model="supplier.gstregistered" type="checkbox"> GST注册公司
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input ng-model="supplier.hasterm" type="checkbox"> 押账
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button ng-click="add()" class="btn btn-default">添加供应商</button>
+                                            <button ng-click="save()" class="btn btn-default">更新</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="dash-unit free-grow">
+                    <!--<dtitle>供应商 产品管理</dtitle>-->
+                    <!--<hr>-->
+                    <div ng-controller="productController">
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <table class="table">
+                                    <tr class="header">
+                                        <!--<td>#</td>-->
+                                        <td>供应商</td>
+                                        <td>商品名</td>
+                                        <td>单价</td>
+                                        <td>单位</td>
+                                        <td>nocosting?</td>
+                                        <td>更改</td>
+                                    </tr>
+                                    <tr ng-repeat='product in products'>
+                                        <!--<td>{{$index}}</td>-->
+                                        <td>{{ product.supplier.name }}</td>
+                                        <td>
+                                            {{ product.name }}
+                                        </td>
+                                        <td>{{ product.unitprice }}</td>
+                                        <td>{{ product.unit }}</td>
+                                        <td>{{ product.excludeincosting || false }}</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-xs" ng-click="edit($index)">修改</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="form form-horizontal">
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">供应商</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" ng-model="product.supplier" ng-options="supplier.name for supplier in suppliers"></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">商品名</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="product.name" class="form-control" id="" placeholder="商品名">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">单价</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="product.unitprice" class="form-control" id="" placeholder="单价">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">数量单位</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="product.unit" class="form-control" id="" placeholder="数量单位， 如（KG）">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input ng-model="product.excludeincosting" type="checkbox"> 不计入成本
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button ng-click="add()" class="btn btn-default">添加商品</button>
+                                             <button ng-click="save()" class="btn btn-default">更新</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="lib/moment/min/moment.min.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/lineandbars.js"></script> -->
+    <script type="text/javascript" src="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="assets/js/admin.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
+    <script src="lib/angular-keypad/dist/angular-keypad.js"></script>
+    <script src="lib/angular-block-ui/dist/angular-block-ui.min.js"></script>
+    <script src="js/lb-services.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

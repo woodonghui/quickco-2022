@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>档口管理系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="assets/css/font-style.css" rel="stylesheet">
+    <link href="assets/css/flexslider.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="lib/angular-block-ui/dist/angular-block-ui.min.css" />
+
+    <!-- <link href="assets/css/jquery.numpad.css" rel="stylesheet"> -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- Google Fonts call. Font Used Open Sans & Raleway -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="App">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">档口管理系统</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/api/sales.html">上报营业额</a></li>
+                    <li><a href="/api/history.html">历史账本</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container body-container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="dash-unit free-grow">
+                    <div ng-controller="listSaleRecordController">
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-12 text-center text-padding">
+                                <select class="input-sm" ng-model="selection.year" ng-options="year for year in years">
+                                </select>
+                                <label>年</label>
+                                <select class="input-sm" ng-model="selection.month" ng-options="month for month in months">
+                                </select>
+                                <label>月</label>
+                                <button class="btn btn-primary btn-default" ng-click="search()">查看</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8 col-lg-8">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" ng-class="{'active': $index == 0}" ng-repeat="outlet in outlets"><a href="#{{outlet.name}}" aria-controls="home" role="tab" data-toggle="tab">{{outlet.name}}</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" ng-class="{'tab-pane': true, 'active': $index == 0}" ng-repeat="outlet in outlets" id="{{outlet.name}}">
+                                        <table class="table">
+                                            <tr class="header">
+                                                <!--<td>#</td>-->
+                                                <td>日期</td>
+                                                <td>营业额</td>
+                                                <!--<td>熊猫</td>-->
+                                                <td>剩余现金</td>
+                                                <td>操作</td>
+                                            </tr>
+                                            <tr ng-repeat="record in tables[outlet.name]">
+                                                <!--<td>{{$index + 1}}</td>-->
+                                                <td>{{record.date | date: 'MM/dd'}}</td>
+                                                <td>${{record.totalincome | mask}}</td>
+
+                                                <!--<td>${{record.foodpandaincome * 0.635}}</td>-->
+                                                <td>${{record.bankincash | mask}}</td>
+                                                <td>
+                                                    <button class="btn btn-primary btn-xs" ng-click="view(outlet, $index)">查看</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!-- <h3>本月平均营业额：${{costTables[outlet.name].totalincome / tables[outlet.name].length | number: 2}}</h3> -->
+                                        <!-- <h3>熊猫外卖收入：${{costTables[outlet.name].foodpandaincome | number: 2}}</h3> -->
+                                        <!-- <h3>Grab外卖收入：${{costTables[outlet.name].grabincome | number: 2}}</h3> -->
+                                        <!-- <h3>Deliveroo外卖收入：${{costTables[outlet.name].honestbeeincome | number: 2}}</h3> -->
+                                        <!-- <h3>本月总收入：${{costTables[outlet.name].totalincome | number: 2}}</h3> -->
+                                        <!-- <h3>本月总出账：${{costTables[outlet.name].totalexpense | number: 2}}</h3> -->
+                                        <!-- <h3>本月总货钱：${{costTables[outlet.name].totalcost | number: 2}}</h3> -->
+                                        <!-- <h3>成本（货钱/收入）：{{costTables[outlet.name].cost}}%</h3> -->
+                                        <!-- <h3>本月总利润：${{costTables[outlet.name].totalincome - costTables[outlet.name].totalexpense | number: 2}}</h3> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-4">
+                                <table class="table" ng-if="record">
+                                    <tr>
+                                        <td>日期:</td>
+                                        <td>{{record.detail.date | date: 'yyyy/MM/dd'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>档口:</td>
+                                        <td>{{record.outlet.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>营业额:</td>
+                                        <td>${{record.detail.totalincome | mask}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>🐼 熊猫外卖:</td>
+                                        <td>${{record.detail.foodpandaincome}} (${{record.detail.foodpandaincome * 0.635}})</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grab外卖:</td>
+                                        <td>${{record.detail.grabincome}} (${{record.detail.grabincome * 0.7}})</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Deliveroo外卖:</td>
+                                        <td>${{record.detail.honestbeeincome}} (${{record.detail.honestbeeincome * 0.7}})</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>货钱</td>
+                                    </tr>
+                                    <tr ng-repeat="cost in record.detail.costRecords" style="background-color: red;">
+                                        <td>{{cost.product.name}} ({{cost.product.supplier.name}}):</td>
+                                        <td>
+                                            <span ng-if="cost.excludeincosting"><strike>${{cost.product.unitprice * cost.quantity * (1+cost.gst) | number : 2}} <span ng-if="!cost.paid">(押账)</span><span ng-if="cost.paid">(&#10003;档口出)</span></strike></span>
+                                            <span ng-if="!cost.excludeincosting">${{cost.product.unitprice * cost.quantity * (1+cost.gst) | number : 2}} <span ng-if="!cost.paid">(押账)</span><span ng-if="cost.paid">(&#10003;档口出)</span></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>💰 剩余现金:</td>
+                                        <td>${{record.detail.bankincash | mask}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <!-- <button class="btn btn-danger" ng-click="delete(record)">删除</button> -->
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="lib/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- <script type="text/javascript" src="//code.highcharts.com/highcharts.js"></script> -->
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
+    <!--<script src="lib/angular-keypad/dist/angular-keypad.js"></script>-->
+    <!-- <script src="js/mask.filter.js"></script> -->
+    <script src="lib/angular-block-ui/dist/angular-block-ui.min.js"></script>
+    <script src="js/lb-services.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
