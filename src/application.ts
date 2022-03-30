@@ -42,7 +42,7 @@ export class QuickcoApplication extends BootMixin(
     // Mount jwt component
     this.component(JWTAuthenticationComponent);
     // Bind datasource
-    // this.dataSource(Quickco2022DataSource, UserServiceBindings.DATASOURCE_NAME);
+    this.dataSource(Quickco2022DataSource, UserServiceBindings.DATASOURCE_NAME);
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
