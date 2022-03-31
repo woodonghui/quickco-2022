@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Employee} from './employee.model';
+import {Outlet} from './outlet.model';
 
 @model()
 export class WorkLog extends Entity {
@@ -8,19 +10,6 @@ export class WorkLog extends Entity {
     generated: true,
   })
   id?: number;
-
-  @property({
-    type: 'number',
-    required: true,
-  })
-  employeeid: number;
-
-  @property({
-    type: 'number',
-    required: true,
-  })
-  outletid: number;
-
   @property({
     type: 'date',
     required: true,
@@ -33,6 +22,11 @@ export class WorkLog extends Entity {
   })
   worklog: number;
 
+  @belongsTo(() => Employee, {name: 'employee'})
+  employeeid: number;
+
+  @belongsTo(() => Outlet, {name: 'outlet'})
+  outletid: number;
 
   constructor(data?: Partial<WorkLog>) {
     super(data);

@@ -7,13 +7,21 @@ const repository_1 = require("@loopback/repository");
 const datasources_1 = require("../datasources");
 const models_1 = require("../models");
 let WorkLogRepository = class WorkLogRepository extends repository_1.DefaultCrudRepository {
-    constructor(dataSource) {
+    constructor(dataSource, employeeRepositoryGetter, outletRepositoryGetter) {
         super(models_1.WorkLog, dataSource);
+        this.employeeRepositoryGetter = employeeRepositoryGetter;
+        this.outletRepositoryGetter = outletRepositoryGetter;
+        this.outlet = this.createBelongsToAccessorFor('outlet', outletRepositoryGetter);
+        this.registerInclusionResolver('outlet', this.outlet.inclusionResolver);
+        this.employee = this.createBelongsToAccessorFor('employee', employeeRepositoryGetter);
+        this.registerInclusionResolver('employee', this.employee.inclusionResolver);
     }
 };
 WorkLogRepository = (0, tslib_1.__decorate)([
     (0, tslib_1.__param)(0, (0, core_1.inject)('datasources.quickco2022')),
-    (0, tslib_1.__metadata)("design:paramtypes", [datasources_1.Quickco2022DataSource])
+    (0, tslib_1.__param)(1, repository_1.repository.getter('EmployeeRepository')),
+    (0, tslib_1.__param)(2, repository_1.repository.getter('OutletRepository')),
+    (0, tslib_1.__metadata)("design:paramtypes", [datasources_1.Quickco2022DataSource, Function, Function])
 ], WorkLogRepository);
 exports.WorkLogRepository = WorkLogRepository;
 //# sourceMappingURL=work-log.repository.js.map

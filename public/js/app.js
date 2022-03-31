@@ -854,3 +854,78 @@ app.controller('reportController', function ($scope, $rootScope, $http, Outlet, 
   }
 
 });
+
+
+
+app.controller('worklogController', function ($scope, $rootScope, $http, Outlet, SaleRecord, Employee, CostRecord, WorkLog, blockUI) {
+  var today = new Date();
+
+  var year = today.getFullYear();
+  var month = today.getMonth() + 1;
+
+  $scope.years = [2021, 2022, 2023, 2024, 2025];
+  $scope.months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  $scope.selection = {
+    year: year,
+    month: month
+  }
+
+  // $scope.employees = Employee.find();
+  // $scope.employee;
+
+  $scope.outlets;
+  $scope.tables = {};
+  $scope.costTables = {};
+  $scope.record;
+
+  function loadReport(employee) {
+    var dateofcurrentmonth = new Date($scope.selection.year, $scope.selection.month - 1);
+    var dateofnextmonth = new Date($scope.selection.year, $scope.selection.month);
+    blockUI.start();
+
+    WorkLog.find({
+        filter: {
+          include: ['outlet', 'employee'],
+          where: {
+            and: [{
+              date: {
+                gte: dateofcurrentmonth
+              }
+            }, {
+              date: {
+                lt: dateofnextmonth
+              }
+            }]
+          },
+          order: 'date ASC'
+        }
+      })
+      .$promise.then(function (records) {
+        var _records = records.filter(function (value) {
+          return value.employeeid == employee.id;
+        });
+
+        $scope.tables[employee.nickname] = _records;
+        $scope.costTables[employee.nickname] = _records.reduce(function (pre, cur) {
+          return pre + cur.worklog;
+        }, 0);
+
+        blockUI.stop();
+      });
+
+  }
+
+  $scope.search = function () {
+    // $scope.outlets = [];
+    $scope.tables = {};
+    $scope.record = null;
+    Employee.find().$promise.then(function (employees) {
+      $scope.employees = employees;
+      for (var i = 0; i < employees.length; i++) {
+        var employee = employees[i];
+        loadReport(employee);
+      }
+    });
+  }
+
+});
