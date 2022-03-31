@@ -79,7 +79,7 @@ export async function migrate(args: string[]) {
     employeeid int NOT NULL,
     outletid int NOT NULL,
     date datetime NOT NULL,
-    worklog int NOT NULL,
+    worklog float NOT NULL,
     PRIMARY KEY (id)
   );
 

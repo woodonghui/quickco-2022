@@ -335,9 +335,6 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
       // $scope.products = Supplier.products({ id: $scope.supplier.id, filter: { include: 'supplier' } });
       Supplier.products({
           id: $scope.supplier.id,
-          // filter: {
-          //   include: ['supplier']
-          // }
         })
         .$promise.then(function (products) {
           var _products = products.sort(function(a, b){
@@ -491,26 +488,28 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
         date: $scope.salerecord.date
       }).$promise
       .then(function (salerecord) {
+        let promises = [];
         if(salerecord) {
-          let worklogs = [];
+          // let worklogs = [];
           for (var i = 0; i < $scope.employeerecord.length; i++) {
-            worklogs.push(WorkLog.create({
+            promises.push(WorkLog.create({
               employeeid: $scope.employeerecord[i].employeeid,
               outletid: $scope.outlet.id,
               date: $scope.salerecord.date,
               worklog: $scope.employeerecord[i].worklog
             }).$promise);
           }
-          Promise.all(worklogs).then(function() {
-            $scope.employee = undefined;
-            $scope.employeerecord = [];
-          });
+          // Promise.all(worklogs).then(function() {
+          //   $scope.employee = undefined;
+          //   $scope.employeerecord = [];
+          // });
         }
         if (salerecord) {
-          var cost = [];
+          //insert cost records
+          // var cost = [];
           for (var i = 0; i < $scope.salerecord.paiditems.length; i++) {
             var item = $scope.salerecord.paiditems[i];
-            cost.push(CostRecord.create({
+            promises.push(CostRecord.create({
               productid: item.product.id,
               date: $scope.salerecord.date,
               quantity: item.quantity,
@@ -523,7 +522,7 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
           }
           for (var i = 0; i < $scope.salerecord.unpaiditems.length; i++) {
             var item = $scope.salerecord.unpaiditems[i];
-            cost.push(CostRecord.create({
+            promises.push(CostRecord.create({
               productid: item.product.id,
               date: $scope.salerecord.date,
               quantity: item.quantity,
@@ -534,8 +533,9 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
               excludeincosting: item.excludeincosting
             }).$promise);
           }
-          if (cost.length > 0) {
-              Promise.all(cost).then(function() {
+
+          if (promises.length > 0) {
+              Promise.all(promises).then(function() {
                 $scope.salerecord = {
                   totalincome: 0,
                   bankincash: null,
@@ -546,9 +546,11 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
                   unpaiditems: []
                 };
                 $scope.supplier = undefined;
-                $rootScope.$broadcast('saleRecordAdded');
+                $scope.employee = undefined;
+                $scope.employeerecord = [];
+                // $rootScope.$broadcast('saleRecordAdded');
                 blockUI.stop();
-                alert('上报成功！');
+                setTimeout(function() { alert('上报成功！') }, 500);
               });
           } else {
             $scope.salerecord = {
@@ -561,9 +563,9 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
               unpaiditems: []
             };
 
-            $rootScope.$broadcast('saleRecordAdded');
+            // $rootScope.$broadcast('saleRecordAdded');
             blockUI.stop();
-            alert('上报成功！');
+            setTimeout(function() { alert('上报成功！') }, 500);
           }
         }
       });
