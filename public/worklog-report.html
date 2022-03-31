@@ -44,6 +44,8 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/api/full-sales.html">上报营业额</a></li>
                     <li><a href="/api/full-history.html">历史账本</a></li>
+                    <li><a href="/api/report.html">进货记录</a></li>
+                    <li><a href="/api/worklog-report.html">员工记录</a></li>
                     <!-- <li><a href="/api/admin.html">设置</a></li> -->
                 </ul>
             </div>
@@ -84,11 +86,14 @@
                                             </tr>
                                             <tr ng-repeat="record in tables[employee.nickname]">
                                                 <td>{{record.date | date: 'MM/dd'}}</td>
-                                                <td>{{record.outlet.name}}</td>
+                                                <td>{{record.outlet.name}} ( {{record.saleRecord.totalincome | currency}} )</td>
                                                 <td>{{ employee.worklog === 0.5 ? '半天' : '一天' }}</td>
                                             </tr>
                                         </table>
-                                         <h3>本月总工作天数：{{costTables[employee.nickname] | number: 1}}</h3>
+                                        <h3>本月总工作天数：{{costTables[employee.nickname] | number: 1}}</h3>
+                                        <h3>本月总业绩：{{salesTables[employee.nickname] | number: 2}}</h3>
+                                        <h3>本月日平均业绩：{{salesTables[employee.nickname]/costTables[employee.nickname] | number: 2}}</h3>
+
                                     </div>
                                 </div>
                             </div>

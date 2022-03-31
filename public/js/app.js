@@ -549,7 +549,8 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
               employeeid: $scope.employeerecord[i].employeeid,
               outletid: $scope.outlet.id,
               date: $scope.salerecord.date,
-              worklog: $scope.employeerecord[i].worklog
+              worklog: $scope.employeerecord[i].worklog,
+              salerecordid: salerecord.id,
             }).$promise);
           }
           // Promise.all(worklogs).then(function() {
@@ -876,6 +877,7 @@ app.controller('worklogController', function ($scope, $rootScope, $http, Outlet,
   $scope.outlets;
   $scope.tables = {};
   $scope.costTables = {};
+  $scope.salesTables = {};
   $scope.record;
 
   function loadReport(employee) {
@@ -885,7 +887,7 @@ app.controller('worklogController', function ($scope, $rootScope, $http, Outlet,
 
     WorkLog.find({
         filter: {
-          include: ['outlet', 'employee'],
+          include: ['outlet', 'employee', 'saleRecord'],
           where: {
             and: [{
               date: {
@@ -910,6 +912,10 @@ app.controller('worklogController', function ($scope, $rootScope, $http, Outlet,
           return pre + cur.worklog;
         }, 0);
 
+        $scope.salesTables[employee.nickname] = _records.reduce(function (pre, cur) {
+          return pre + cur.saleRecord.totalincome;
+        }, 0);
+
         blockUI.stop();
       });
 
@@ -919,7 +925,15 @@ app.controller('worklogController', function ($scope, $rootScope, $http, Outlet,
     // $scope.outlets = [];
     $scope.tables = {};
     $scope.record = null;
-    Employee.find().$promise.then(function (employees) {
+    Employee.find({
+      filter: {
+        where: {
+          and: [{
+            islive: true
+          }]
+        }
+      }
+    }).$promise.then(function (employees) {
       $scope.employees = employees;
       for (var i = 0; i < employees.length; i++) {
         var employee = employees[i];

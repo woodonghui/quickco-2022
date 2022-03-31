@@ -5,6 +5,7 @@ export declare class WorkLog extends Entity {
     worklog: number;
     employeeid: number;
     outletid: number;
+    salerecordid: number;
     constructor(data?: Partial<WorkLog>);
 }
 export interface WorkLogRelations {
