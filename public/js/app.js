@@ -310,6 +310,7 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
   $scope.foodpandapayoutrate = 0.635;
   $scope.honestbeepayoutrate = 0.7;
   $scope.grabpayoutrate = 0.7;
+  $scope.grabpayfee = 0.98;
   $scope.gst = 0.07;
 
   Outlet.find().$promise.then(function(outlets) {
@@ -336,6 +337,7 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
   $scope.salerecord = {
     totalincome: null,
     bankincash: null,
+    grabpay: null,
     foodpandaincome: null,
     // honestbeeincome: null,
     grabincome: null,
@@ -440,6 +442,7 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
     $scope.salerecord.totalincome += ($scope.salerecord.foodpandaincome || 0) * $scope.foodpandapayoutrate;
     // $scope.salerecord.totalincome += ($scope.salerecord.honestbeeincome || 0) * $scope.honestbeepayoutrate;
     $scope.salerecord.totalincome += ($scope.salerecord.grabincome || 0) * $scope.grabpayoutrate;
+    $scope.salerecord.totalincome += ($scope.salerecord.grabpay || 0) * $scope.grabpayfee;
     $scope.salerecord.totalincome = parseFloat($scope.salerecord.totalincome.toFixed(2));
   }
 
@@ -447,9 +450,9 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
     calculateTotalIncome();
   });
 
-  // $scope.$watch('salerecord.honestbeeincome', function (newValue, oldValue) {
-  //   calculateTotalIncome();
-  // });
+  $scope.$watch('salerecord.grabpay', function (newValue, oldValue) {
+    calculateTotalIncome();
+  });
 
   $scope.$watch('salerecord.grabincome', function (newValue, oldValue) {
     calculateTotalIncome();
@@ -534,6 +537,7 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
     SaleRecord.create({
         totalincome: $scope.salerecord.totalincome || 0,
         bankincash: $scope.salerecord.bankincash || 0,
+        grabpay: $scope.salerecord.grabpay || 0,
         foodpandaincome: $scope.salerecord.foodpandaincome || 0,
         // honestbeeincome: $scope.salerecord.honestbeeincome || 0,
         grabincome: $scope.salerecord.grabincome || 0,
@@ -593,6 +597,7 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
                 $scope.salerecord = {
                   totalincome: 0,
                   bankincash: null,
+                  grabpay: null,
                   foodpandaincome: null,
                   // honestbeeincome: null,
                   grabincome: null,
@@ -610,6 +615,7 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
             $scope.salerecord = {
               totalincome: 0,
               bankincash: null,
+              grabpay: null,
               foodpandaincome: null,
               // honestbeeincome: null,
               grabincome: null,

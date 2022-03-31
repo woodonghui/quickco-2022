@@ -45,12 +45,16 @@ export class SaleRecord extends Entity {
   })
   grabincome?: number;
 
+  @property({
+    type: 'number',
+    mysql: {
+      dataType: 'float'
+    }
+  })
+  grabpay?: number;
+
   @hasMany(() => CostRecord, {keyTo: 'salerecordid'})
   costRecords: CostRecord[];
-  // @property({
-  //   type: 'number',
-  // })
-  // grabpay?: number;
 
   constructor(data?: Partial<SaleRecord>) {
     super(data);

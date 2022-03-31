@@ -5,10 +5,6 @@ const tslib_1 = require("tslib");
 const repository_1 = require("@loopback/repository");
 const cost_record_model_1 = require("./cost-record.model");
 let SaleRecord = class SaleRecord extends repository_1.Entity {
-    // @property({
-    //   type: 'number',
-    // })
-    // grabpay?: number;
     constructor(data) {
         super(data);
     }
@@ -62,6 +58,15 @@ let SaleRecord = class SaleRecord extends repository_1.Entity {
     }),
     (0, tslib_1.__metadata)("design:type", Number)
 ], SaleRecord.prototype, "grabincome", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'number',
+        mysql: {
+            dataType: 'float'
+        }
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], SaleRecord.prototype, "grabpay", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.hasMany)(() => cost_record_model_1.CostRecord, { keyTo: 'salerecordid' }),
     (0, tslib_1.__metadata)("design:type", Array)

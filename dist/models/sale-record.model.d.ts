@@ -8,6 +8,7 @@ export declare class SaleRecord extends Entity {
     outletid: number;
     totalincome: number;
     grabincome?: number;
+    grabpay?: number;
     costRecords: CostRecord[];
     constructor(data?: Partial<SaleRecord>);
 }

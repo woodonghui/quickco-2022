@@ -45,7 +45,7 @@
                     <li><a href="/api/full-sales.html">上报营业额</a></li>
                     <li><a href="/api/full-history.html">历史账本</a></li>
                     <li><a href="/api/report.html">进货记录</a></li>
-                    <li><a href="/api/worklog-report.html">员工记录</a></li>                    
+                    <li><a href="/api/worklog-report.html">员工记录</a></li>
                     <li><a href="/api/full-bank.html">银行账号</a></li>
                     <!--<li><a href="/index.html">当月成本</a></li>-->
                     <!--<li><a href="/admin.html">设置</a></li>-->
@@ -126,6 +126,10 @@
                                     <tr>
                                         <td>营业额:</td>
                                         <td>${{record.detail.totalincome}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grab Pay 手机支付:</td>
+                                        <td>{{record.detail.grabpay | currency}}</td>
                                     </tr>
                                     <tr>
                                         <td>🐼 熊猫外卖:</td>
