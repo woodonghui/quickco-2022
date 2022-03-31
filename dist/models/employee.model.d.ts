@@ -6,6 +6,7 @@ export declare class Employee extends Entity {
     finno?: string;
     wpno?: string;
     joindate?: string;
+    islive?: boolean;
     constructor(data?: Partial<Employee>);
 }
 export interface EmployeeRelations {

@@ -11,3 +11,4 @@ export * from './sale-record-cost-record.controller';
 export * from './cost-record-product.controller';
 export * from './employee.controller';
 export * from './worklog.controller';
+export * from './cost-record-sale-record.controller';

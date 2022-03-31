@@ -4,11 +4,11 @@ export declare class CostRecord extends Entity {
     date: string;
     paid: boolean;
     quantity: number;
-    salerecordid: number;
     excludeincosting?: boolean;
     unitprice?: number;
     gst?: number;
     productid: number;
+    salerecordid: number;
     constructor(data?: Partial<CostRecord>);
 }
 export interface CostRecordRelations {

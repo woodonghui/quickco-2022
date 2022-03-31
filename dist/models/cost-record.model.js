@@ -4,6 +4,7 @@ exports.CostRecord = void 0;
 const tslib_1 = require("tslib");
 const repository_1 = require("@loopback/repository");
 const product_model_1 = require("./product.model");
+const sale_record_model_1 = require("./sale-record.model");
 let CostRecord = class CostRecord extends repository_1.Entity {
     constructor(data) {
         super(data);
@@ -43,13 +44,6 @@ let CostRecord = class CostRecord extends repository_1.Entity {
 ], CostRecord.prototype, "quantity", void 0);
 (0, tslib_1.__decorate)([
     (0, repository_1.property)({
-        type: 'number',
-        required: true,
-    }),
-    (0, tslib_1.__metadata)("design:type", Number)
-], CostRecord.prototype, "salerecordid", void 0);
-(0, tslib_1.__decorate)([
-    (0, repository_1.property)({
         type: 'boolean',
     }),
     (0, tslib_1.__metadata)("design:type", Boolean)
@@ -76,6 +70,10 @@ let CostRecord = class CostRecord extends repository_1.Entity {
     (0, repository_1.belongsTo)(() => product_model_1.Product, { name: 'product' }),
     (0, tslib_1.__metadata)("design:type", Number)
 ], CostRecord.prototype, "productid", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.belongsTo)(() => sale_record_model_1.SaleRecord, { name: 'saleRecord' }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], CostRecord.prototype, "salerecordid", void 0);
 CostRecord = (0, tslib_1.__decorate)([
     (0, repository_1.model)(),
     (0, tslib_1.__metadata)("design:paramtypes", [Object])

@@ -14,4 +14,5 @@ const tslib_1 = require("tslib");
 (0, tslib_1.__exportStar)(require("./cost-record-product.controller"), exports);
 (0, tslib_1.__exportStar)(require("./employee.controller"), exports);
 (0, tslib_1.__exportStar)(require("./worklog.controller"), exports);
+(0, tslib_1.__exportStar)(require("./cost-record-sale-record.controller"), exports);
 //# sourceMappingURL=index.js.map

@@ -48,6 +48,12 @@ let Employee = class Employee extends repository_1.Entity {
     }),
     (0, tslib_1.__metadata)("design:type", String)
 ], Employee.prototype, "joindate", void 0);
+(0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'boolean',
+    }),
+    (0, tslib_1.__metadata)("design:type", Boolean)
+], Employee.prototype, "islive", void 0);
 Employee = (0, tslib_1.__decorate)([
     (0, repository_1.model)(),
     (0, tslib_1.__metadata)("design:paramtypes", [Object])

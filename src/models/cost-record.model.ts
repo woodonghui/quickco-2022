@@ -1,5 +1,6 @@
 import {Entity, model, property, belongsTo} from '@loopback/repository';
 import {Product} from './product.model';
+import {SaleRecord} from './sale-record.model';
 
 @model()
 export class CostRecord extends Entity {
@@ -29,13 +30,6 @@ export class CostRecord extends Entity {
     }
   })
   quantity: number;
-
-  @property({
-    type: 'number',
-    required: true,
-  })
-  salerecordid: number;
-
   @property({
     type: 'boolean',
   })
@@ -59,6 +53,9 @@ export class CostRecord extends Entity {
 
   @belongsTo(() => Product, {name: 'product'})
   productid: number;
+
+  @belongsTo(() => SaleRecord, {name: 'saleRecord'})
+  salerecordid: number;
 
   constructor(data?: Partial<CostRecord>) {
     super(data);

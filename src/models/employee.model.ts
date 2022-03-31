@@ -36,6 +36,10 @@ export class Employee extends Entity {
   })
   joindate?: string;
 
+  @property({
+    type: 'boolean',
+  })
+  islive?: boolean;
 
   constructor(data?: Partial<Employee>) {
     super(data);

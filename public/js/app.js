@@ -40,6 +40,53 @@ app.controller('loginController', function ($scope, $http, User) {
 
 });
 
+
+app.controller('employeeController', function ($scope, $http, Employee) {
+  $scope.employee;
+  $scope.employees = Employee.find();
+  $scope.loading = false;
+
+  $scope.add = function () {
+    $scope.loading = true;
+    Employee.create({
+        fullname: $scope.employee.fullname,
+        nickname: $scope.employee.nickname,
+        islive: $scope.employee.islive
+      })
+      .$promise.then(function (employee) {
+        $scope.employees.push(employee);
+        $scope.employee.fullname = '';
+        $scope.employee.nickname = '';
+        $scope.employee.islive = undefined;
+        $scope.loading = false;
+      }, function (fail) {
+        alert('错误!');
+      });
+  }
+
+  $scope.edit = function ($index) {
+    $scope.loading = true;
+    var employee = $scope.employees[$index];
+    Employee.findById({
+      id: employee.id
+    }).$promise.then(function (employee) {
+      $scope.employee = employee;
+      $scope.loading = false;
+    });
+  }
+
+  $scope.save = function () {
+    Employee.prototype$updateAttributes({
+      id: $scope.employee.id,
+      fullname: $scope.employee.fullname,
+      nickname: $scope.employee.nickname,
+      islive: $scope.employee.islive
+    }).$promise.then(function () {
+      $scope.employees = Employee.find();
+    });
+  }
+});
+
 app.controller('outletController', function ($scope, $http, Outlet) {
 
   $scope.outlets = Outlet.find();
@@ -274,7 +321,13 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
   $scope.outlet;
 
   // load employees
-  $scope.employees = Employee.find();
+  $scope.employees = Employee.find({filter: {
+    where: {
+      and: [{
+        islive: true
+      }]
+    }
+  }});
   $scope.employee;
   $scope.employeerecord = [];
   $scope.isHalfDay = false;
@@ -749,6 +802,7 @@ app.controller('reportController', function ($scope, $rootScope, $http, Outlet, 
 
     CostRecord.find({
         filter: {
+          // include: ['product'],
           include: ['product', 'saleRecord'],
           where: {
             and: [{
