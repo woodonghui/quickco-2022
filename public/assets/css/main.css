@@ -26,7 +26,12 @@
 /**********BASE CONFIGURATIONS**********/
 body {
 	background:#1f1f1f;
-    font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+	margin: 0 20px;
+}
+
+.navbar-header {
+	margin: 0 15px;
 }
 
 h1 {
