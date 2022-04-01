@@ -306,7 +306,7 @@ app.controller('listSaleRecordController', function ($scope, $rootScope, $http, 
 });
 
 
-app.controller('saleRecordController', function ($scope, $rootScope, $http, Supplier, Outlet, SaleRecord, CostRecord, Employee, WorkLog, blockUI) {
+app.controller('saleRecordController', function ($scope, $timeout, $rootScope, $http, Supplier, Outlet, SaleRecord, CostRecord, Employee, WorkLog, blockUI) {
   $scope.foodpandapayoutrate = 0.635;
   $scope.honestbeepayoutrate = 0.7;
   $scope.grabpayoutrate = 0.7;
@@ -608,8 +608,10 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
                 $scope.employee = undefined;
                 $scope.employeerecord = [];
                 // $rootScope.$broadcast('saleRecordAdded');
-                blockUI.stop();
-                setTimeout(function() { alert('上报成功！') }, 500);
+                $timeout(function() {
+                  blockUI.stop();
+                }, 500);
+                alert('上报成功！');
               });
           } else {
             $scope.salerecord = {
@@ -624,8 +626,10 @@ app.controller('saleRecordController', function ($scope, $rootScope, $http, Supp
             };
 
             // $rootScope.$broadcast('saleRecordAdded');
-            blockUI.stop();
-            setTimeout(function() { alert('上报成功！') }, 500);
+            $timeout(function() {
+              blockUI.stop();
+            }, 500);
+            alert('上报成功！');
           }
         }
       });
