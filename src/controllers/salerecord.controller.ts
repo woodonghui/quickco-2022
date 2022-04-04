@@ -19,7 +19,9 @@ import {
 } from '@loopback/rest';
 import {SaleRecord} from '../models';
 import {SaleRecordRepository} from '../repositories';
+import {authenticate} from '@loopback/authentication';
 
+@authenticate('jwt')
 export class SalerecordController {
   constructor(
     @repository(SaleRecordRepository)
@@ -37,7 +39,7 @@ export class SalerecordController {
         'application/json': {
           schema: getModelSchemaRef(SaleRecord, {
             title: 'NewSaleRecord',
-            
+
           }),
         },
       },

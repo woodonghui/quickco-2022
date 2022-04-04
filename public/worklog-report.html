@@ -83,11 +83,15 @@
                                                 <td>日期</td>
                                                 <td>档口</td>
                                                 <td>工作时间</td>
+                                                <td>Action</td>
                                             </tr>
                                             <tr ng-repeat="record in tables[employee.nickname]">
                                                 <td>{{record.date | date: 'MM/dd'}}</td>
                                                 <td>{{record.outlet.name}} ( {{record.saleRecord.totalincome | currency}} )</td>
                                                 <td>{{ employee.worklog === 0.5 ? '半天' : '一天' }}</td>
+                                                <td>
+                                                  <button class="btn btn-primary btn-xs" ng-click="delete(record, $index)">删除</button>
+                                                </td>
                                             </tr>
                                         </table>
                                         <h3>本月总工作天数：{{costTables[employee.nickname] | number: 1}}</h3>

@@ -6,6 +6,7 @@ const repository_1 = require("@loopback/repository");
 const rest_1 = require("@loopback/rest");
 const models_1 = require("../models");
 const repositories_1 = require("../repositories");
+const authentication_1 = require("@loopback/authentication");
 let WorklogController = class WorklogController {
     constructor(workLogRepository) {
         this.workLogRepository = workLogRepository;
@@ -156,6 +157,7 @@ let WorklogController = class WorklogController {
     (0, tslib_1.__metadata)("design:returntype", Promise)
 ], WorklogController.prototype, "deleteById", null);
 WorklogController = (0, tslib_1.__decorate)([
+    (0, authentication_1.authenticate)('jwt'),
     (0, tslib_1.__param)(0, (0, repository_1.repository)(repositories_1.WorkLogRepository)),
     (0, tslib_1.__metadata)("design:paramtypes", [repositories_1.WorkLogRepository])
 ], WorklogController);

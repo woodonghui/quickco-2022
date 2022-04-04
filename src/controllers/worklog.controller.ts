@@ -19,7 +19,9 @@ import {
 } from '@loopback/rest';
 import {WorkLog} from '../models';
 import {WorkLogRepository} from '../repositories';
+import {authenticate} from '@loopback/authentication';
 
+@authenticate('jwt')
 export class WorklogController {
   constructor(
     @repository(WorkLogRepository)
@@ -37,7 +39,7 @@ export class WorklogController {
         'application/json': {
           schema: getModelSchemaRef(WorkLog, {
             title: 'NewWorkLog',
-            
+
           }),
         },
       },

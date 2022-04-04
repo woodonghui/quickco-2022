@@ -952,4 +952,30 @@ app.controller('worklogController', function ($scope, $rootScope, $http, Outlet,
     });
   }
 
+  $scope.delete = function(record, index) {
+    var confirmed = confirm("确定删除吗？");
+    if (!confirmed) return false;
+    WorkLog.deleteById({
+      id: record.id
+    }).$promise.then(function() {
+      $scope.tables = {};
+      $scope.record = null;
+      Employee.find({
+        filter: {
+          where: {
+            and: [{
+              islive: true
+            }]
+          }
+        }
+      }).$promise.then(function (employees) {
+        $scope.employees = employees;
+        for (var i = 0; i < employees.length; i++) {
+          var employee = employees[i];
+          loadReport(employee);
+        }
+      });
+    });
+  }
+
 });
