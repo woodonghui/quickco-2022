@@ -24,6 +24,7 @@ export declare class UserController {
     login(credentials: Credentials): Promise<{
         token: string;
         role: string | undefined;
+        realm: string | undefined;
     }>;
     whoAmI(currentUserProfile: UserProfile): Promise<{
         role: string | undefined;

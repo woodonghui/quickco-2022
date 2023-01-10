@@ -8,10 +8,12 @@ const config = {
   host: 'localhost',
   port: 3306,
   user: 'root',
-  // password: '111',
   password: 'wSWTyP3xbs',
   // database: 'quickco2022'
   database: 'quickcost'
+  // local dev
+  // database: 'mydb'
+  // password: '111',
 };
 
 // Observe application's life cycle to disconnect the datasource when

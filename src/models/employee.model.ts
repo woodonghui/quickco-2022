@@ -41,6 +41,11 @@ export class Employee extends Entity {
   })
   islive?: boolean;
 
+  @property({
+    type: 'string',
+  })
+  outlet?: string;
+
   constructor(data?: Partial<Employee>) {
     super(data);
   }

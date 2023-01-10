@@ -6,20 +6,16 @@ import {
   TokenServiceBindings,
   User,
   UserRepository,
-  UserServiceBindings,
+  UserServiceBindings
 } from '@loopback/authentication-jwt';
 import {inject} from '@loopback/core';
-import {model, property, repository, FilterExcludingWhere} from '@loopback/repository';
+import {FilterExcludingWhere, model, property, repository} from '@loopback/repository';
 import {
   get,
-  getModelSchemaRef,
-  post,
-  requestBody,
-  SchemaObject,
-  param,
-  response,
+  getModelSchemaRef, param, post,
+  requestBody, response, SchemaObject
 } from '@loopback/rest';
-import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
+import {SecurityBindings, UserProfile} from '@loopback/security';
 import {genSalt, hash} from 'bcryptjs';
 import _ from 'lodash';
 
@@ -64,7 +60,7 @@ export class UserController {
     @inject(SecurityBindings.USER, {optional: true})
     public user: UserProfile,
     @repository(UserRepository) protected userRepository: UserRepository,
-  ) {}
+  ) { }
 
   @post('/users/login', {
     responses: {
@@ -87,15 +83,16 @@ export class UserController {
   })
   async login(
     @requestBody(CredentialsRequestBody) credentials: Credentials,
-  ): Promise<{token: string, role: string | undefined}> {
+  ): Promise<{token: string, role: string | undefined, realm: string | undefined}> {
     // ensure the user exists, and the password is correct
     const user = await this.userService.verifyCredentials(credentials);
+    const realm = user.realm;
     // convert a User object into a UserProfile object (reduced set of properties)
     const userProfile = this.userService.convertToUserProfile(user);
     // create a JSON Web Token based on the user profile
     const token = await this.jwtService.generateToken(userProfile);
     const role = userProfile.name;
-    return {token, role};
+    return {token, role, realm};
   }
 
   @authenticate('jwt')

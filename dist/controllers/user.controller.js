@@ -55,12 +55,13 @@ let UserController = class UserController {
     async login(credentials) {
         // ensure the user exists, and the password is correct
         const user = await this.userService.verifyCredentials(credentials);
+        const realm = user.realm;
         // convert a User object into a UserProfile object (reduced set of properties)
         const userProfile = this.userService.convertToUserProfile(user);
         // create a JSON Web Token based on the user profile
         const token = await this.jwtService.generateToken(userProfile);
         const role = userProfile.name;
-        return { token, role };
+        return { token, role, realm };
     }
     async whoAmI(currentUserProfile) {
         // const role = currentUserProfile[securityId];

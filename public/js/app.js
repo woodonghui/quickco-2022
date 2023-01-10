@@ -16,10 +16,13 @@ app.controller('loginController', function ($scope, $http, User) {
         password: $scope.password
       })
       .$promise.then(function (user) {
-        if(user && user.role == 'admin') {
-          window.location.href = '/api/full-sales.html';
+        localStorage.setItem('role', user.role);
+        localStorage.setItem('realm', user.realm);
+        if(user && user.role == 'superadmin') {
+          localStorage.setItem('role', 'admin');
+          window.location.href = '/admin.html';
         } else {
-          window.location.href = '/api/sales.html';
+          window.location.href = '/full-sales.html';
         }
       }, function (fail) {
         alert('用户名和密码错误!');
@@ -150,7 +153,7 @@ app.controller('listSaleRecordController', function ($scope, $rootScope, $http, 
   var year = today.getFullYear();
   var month = today.getMonth() + 1;
 
-  $scope.years = [2021, 2022, 2023, 2024, 2025];
+  $scope.years = [2022, 2023, 2024, 2025];
   $scope.months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   $scope.selection = {
     year: year,
@@ -257,15 +260,26 @@ app.controller('listSaleRecordController', function ($scope, $rootScope, $http, 
     $scope.outlets = [];
     $scope.tables = {};
     $scope.record = null;
-    Outlet.find().$promise.then(function (models) {
-      $scope.outlets = models;
-      for (var i = 0; i < models.length; i++) {
-        var outlet = models[i];
+    Outlet.find().$promise.then(function (outlets) {
+      // $scope.outlets = models;
+      var realm = localStorage.getItem('realm');
+      var role = localStorage.getItem('role');
+      $scope.outlets = outlets.filter(function(outlet) {
+        if(role == 'admin') return true;
+        if(realm && realm.indexOf(outlet.name) > -1) {
+          return true;
+        } else {
+          return false;
+        }
+      }); // filter outlets by ACL
+
+      for (var i = 0; i < outlets.length; i++) {
+        var outlet = outlets[i];
         loadSaleRecords(outlet);
       }
     }, function(error) {
       alert('请先登陆！');
-      window.location.href = '/api/login.html';
+      window.location.href = '/login.html';
     });
   }
 
@@ -306,6 +320,7 @@ app.controller('listSaleRecordController', function ($scope, $rootScope, $http, 
 });
 
 
+// add sale record
 app.controller('saleRecordController', function ($scope, $timeout, $rootScope, $http, Supplier, Outlet, SaleRecord, CostRecord, Employee, WorkLog, blockUI) {
   $scope.foodpandapayoutrate = 0.635;
   $scope.honestbeepayoutrate = 0.7;
@@ -314,10 +329,19 @@ app.controller('saleRecordController', function ($scope, $timeout, $rootScope, $
   $scope.gst = 0.07;
 
   Outlet.find().$promise.then(function(outlets) {
-    $scope.outlets = outlets;
+    var realm = localStorage.getItem('realm');
+    var role = localStorage.getItem('role');
+    $scope.outlets = outlets.filter(function(outlet) {
+      if(role == 'admin') return true;
+      if(realm && realm.indexOf(outlet.name) > -1) {
+        return true;
+      } else {
+        return false;
+      }
+    }); // filter outlets by ACL
   }, function(error) {
     alert('请先登陆！');
-    window.location.href = '/api/login.html';
+    window.location.href = '/login.html';
   });
   $scope.outlet;
 
@@ -710,7 +734,7 @@ app.controller('productController', function ($scope, $http, Product, Supplier) 
     $scope.products = products;
   }, function(err) {
     alert('请先登陆！');
-    window.location.href = '/api/login.html';
+    window.location.href = '/login.html';
   });
   $scope.product;
   $scope.loading = false;
@@ -791,7 +815,7 @@ app.controller('reportController', function ($scope, $rootScope, $http, Outlet, 
   var year = today.getFullYear();
   var month = today.getMonth() + 1;
 
-  $scope.years = [2021, 2022, 2023, 2024, 2025];
+  $scope.years = [2022, 2023, 2024, 2025];
   $scope.months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   $scope.selection = {
     year: year,
@@ -854,18 +878,27 @@ app.controller('reportController', function ($scope, $rootScope, $http, Outlet, 
     $scope.outlets = [];
     $scope.tables = {};
     $scope.record = null;
-    Outlet.find().$promise.then(function (models) {
-      $scope.outlets = models;
-      for (var i = 0; i < models.length; i++) {
-        var outlet = models[i];
+    Outlet.find().$promise.then(function (outlets) {
+      // $scope.outlets = models;
+      var realm = localStorage.getItem('realm');
+      var role = localStorage.getItem('role');
+      $scope.outlets = outlets.filter(function(outlet) {
+        if(role == 'admin') return true;
+        if(realm && realm.indexOf(outlet.name) > -1) {
+          return true;
+        } else {
+          return false;
+        }
+      }); // filter outlets by ACL
+
+      for (var i = 0; i < outlets.length; i++) {
+        var outlet = outlets[i];
         // loadSaleRecords(outlet);
         loadReport(outlet, $scope.supplier);
       }
     });
   }
-
 });
-
 
 
 app.controller('worklogController', function ($scope, $rootScope, $http, Outlet, SaleRecord, Employee, CostRecord, WorkLog, blockUI) {
@@ -874,7 +907,7 @@ app.controller('worklogController', function ($scope, $rootScope, $http, Outlet,
   var year = today.getFullYear();
   var month = today.getMonth() + 1;
 
-  $scope.years = [2021, 2022, 2023, 2024, 2025];
+  $scope.years = [2022, 2023, 2024, 2025];
   $scope.months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   $scope.selection = {
     year: year,

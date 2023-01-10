@@ -13,7 +13,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 (function(window, angular, undefined) {
   'use strict';
 
-  var urlBase = "/api";
+  var urlBase = "http://product-quickco-2022.mengtron.com/api";
+  // var urlBase = "/api";
   var authHeader = 'Authorization';
 
   function getHost(url) {
