@@ -8,7 +8,8 @@ export async function migrate(args: string[]) {
   await app.boot();
   await app.migrateSchema({
     existingSchema,
-    models: ['Outlet', 'SaleRecord', 'Supplier', 'Product', 'CostRecord', 'Employee', 'WorkLog']
+    models: ['OperationCost']
+    // models: ['Outlet', 'SaleRecord', 'Supplier', 'Product', 'CostRecord', 'Employee', 'WorkLog']
   });
 
   //mysql --user=root --password quickco2022
@@ -34,17 +35,17 @@ export async function migrate(args: string[]) {
   // ALTER TABLE tablename CONVERT TO CHARACTER SET latin1;
 
 
-// +-------------------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
-// | Field             | Type         | Collation         | Null | Key | Default | Extra | Privileges                      | Comment |
-// +-------------------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
-// | email             | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
-// | password          | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
-// | id                | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
-// | realm             | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
-// | username          | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
-// | emailVerified     | tinyint(1)   | NULL              | YES  |     | NULL    |       | select,insert,update,references |         |
-// | verificationToken | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
-// +-------------------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
+  // +-------------------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
+  // | Field             | Type         | Collation         | Null | Key | Default | Extra | Privileges                      | Comment |
+  // +-------------------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
+  // | email             | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+  // | password          | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+  // | id                | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+  // | realm             | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+  // | username          | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+  // | emailVerified     | tinyint(1)   | NULL              | YES  |     | NULL    |       | select,insert,update,references |         |
+  // | verificationToken | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+  // +-------------------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
 
   /*
   CREATE TABLE UserCredentials (
@@ -54,13 +55,13 @@ export async function migrate(args: string[]) {
   );
   */
 
-// +----------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
-// | Field    | Type         | Collation         | Null | Key | Default | Extra | Privileges                      | Comment |
-// +----------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
-// | id       | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
-// | password | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
-// | userId   | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
-// +----------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
+  // +----------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
+  // | Field    | Type         | Collation         | Null | Key | Default | Extra | Privileges                      | Comment |
+  // +----------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
+  // | id       | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+  // | password | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+  // | userId   | varchar(255) | latin1_swedish_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+  // +----------+--------------+-------------------+------+-----+---------+-------+---------------------------------+---------+
 
 
   /*
@@ -80,6 +81,18 @@ export async function migrate(args: string[]) {
     outletid int NOT NULL,
     date datetime NOT NULL,
     worklog float NOT NULL,
+    PRIMARY KEY (id)
+  );
+
+  CREATE TABLE OperationCost (
+    id int NOT NULL AUTO_INCREMENT,
+    outlet varchar(512) NOT NULL,
+    rental int NOT NULL,
+    levy int NOT NULL,
+    managementfee int NOT NULL,
+    salary int NOT NULL,
+    salaryshared int NOT NULL,
+    payoutratio float NOT NULL,
     PRIMARY KEY (id)
   );
 

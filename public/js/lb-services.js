@@ -13,7 +13,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 (function(window, angular, undefined) {
   'use strict';
 
-  var urlBase = "http://product-quickco-2022.mengtron.com/api";
+  var urlBase = "http://api.mengtron.com/api";
   // var urlBase = "/api";
   var authHeader = 'Authorization';
 
@@ -6159,6 +6159,1232 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
 
         return R;
       }]);
+
+
+/**
+ * @ngdoc object
+ * @name lbServices.OperationCost
+ * @header lbServices.OperationCost
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `OperationCost` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+ module.factory(
+  "OperationCost",
+  [
+    'LoopBackResource', 'LoopBackAuth', '$injector', '$q',
+    function(LoopBackResource, LoopBackAuth, $injector, $q) {
+      var R = LoopBackResource(
+      urlBase + "/operation-costs/:id",
+        { 'id': '@id' },
+        {
+
+          // INTERNAL. Use OperationCost.saleRecords.findById() instead.
+          "prototype$__findById__saleRecords": {
+            params: {
+              'fk': '@fk',
+            },
+            url: urlBase + "/operation-costs/:id/saleRecords/:fk",
+            method: "GET",
+          },
+
+          // INTERNAL. Use OperationCost.saleRecords.destroyById() instead.
+          "prototype$__destroyById__saleRecords": {
+            params: {
+              'fk': '@fk',
+            },
+            url: urlBase + "/operation-costs/:id/saleRecords/:fk",
+            method: "DELETE",
+          },
+
+          // INTERNAL. Use OperationCost.saleRecords.updateById() instead.
+          "prototype$__updateById__saleRecords": {
+            params: {
+              'fk': '@fk',
+            },
+            url: urlBase + "/operation-costs/:id/saleRecords/:fk",
+            method: "PUT",
+          },
+
+          // INTERNAL. Use OperationCost.saleRecords() instead.
+          "prototype$__get__saleRecords": {
+            isArray: true,
+            url: urlBase + "/operation-costs/:id/saleRecords",
+            method: "GET",
+          },
+
+          // INTERNAL. Use OperationCost.saleRecords.create() instead.
+          "prototype$__create__saleRecords": {
+            url: urlBase + "/operation-costs/:id/saleRecords",
+            method: "POST",
+          },
+
+          // INTERNAL. Use OperationCost.saleRecords.destroyAll() instead.
+          "prototype$__delete__saleRecords": {
+            url: urlBase + "/operation-costs/:id/saleRecords",
+            method: "DELETE",
+          },
+
+          // INTERNAL. Use OperationCost.saleRecords.count() instead.
+          "prototype$__count__saleRecords": {
+            url: urlBase + "/operation-costs/:id/saleRecords/count",
+            method: "GET",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#create
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Create a new instance of the model and persist it into the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *   This method does not accept any parameters.
+           *   Supply an empty object or omit this argument altogether.
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `data` – `{object=}` - Model instance data
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "create": {
+            url: urlBase + "/operation-costs",
+            method: "POST",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#createMany
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Create a new instance of the model and persist it into the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *   This method does not accept any parameters.
+           *   Supply an empty object or omit this argument altogether.
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `data` – `{object=}` - Model instance data
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Array.<Object>,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Array.<Object>} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "createMany": {
+            isArray: true,
+            url: urlBase + "/operation-costs",
+            method: "POST",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#patchOrCreate
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Patch an existing model instance or insert a new one into the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `data` – `{object=}` - Model instance data
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "patchOrCreate": {
+            url: urlBase + "/operation-costs",
+            method: "PATCH",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#replaceOrCreate
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Replace an existing model instance or insert a new one into the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *   This method does not accept any parameters.
+           *   Supply an empty object or omit this argument altogether.
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `data` – `{object=}` - Model instance data
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "replaceOrCreate": {
+            url: urlBase + "/operation-costs/replaceOrCreate",
+            method: "POST",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#upsertWithWhere
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Update an existing model instance or insert a new one into the data source based on the where criteria.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `where` – `{object=}` - Criteria to match model instances
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `data` – `{object=}` - An object of model property name/value pairs
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "upsertWithWhere": {
+            url: urlBase + "/operation-costs/upsertWithWhere",
+            method: "POST",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#exists
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Check whether a model instance exists in the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - Model id
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * Data properties:
+           *
+           *  - `exists` – `{boolean=}` -
+           */
+          "exists": {
+            url: urlBase + "/operation-costs/:id/exists",
+            method: "GET",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#findById
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Find a model instance by {{id}} from the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - Model id
+           *
+           *  - `filter` – `{object=}` - Filter defining fields and include - must be a JSON-encoded string ({"something":"value"})
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "findById": {
+            url: urlBase + "/operation-costs/:id",
+            method: "GET",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#replaceById
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Replace attributes for a model instance and persist it into the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - Model id
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `data` – `{object=}` - Model instance data
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "replaceById": {
+            url: urlBase + "/operation-costs/:id/replace",
+            method: "POST",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#find
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Find all instances of the model matched by filter from the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Array.<Object>,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Array.<Object>} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "find": {
+            isArray: true,
+            url: urlBase + "/operation-costs",
+            method: "GET",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#findOne
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Find first instance of the model matched by filter from the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "findOne": {
+            url: urlBase + "/operation-costs/findOne",
+            method: "GET",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#updateAll
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Update instances of the model matched by {{where}} from the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `where` – `{object=}` - Criteria to match model instances
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `data` – `{object=}` - An object of model property name/value pairs
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * Information related to the outcome of the operation
+           */
+          "updateAll": {
+            url: urlBase + "/operation-costs/update",
+            method: "POST",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#deleteById
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Delete a model instance by {{id}} from the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - Model id
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "deleteById": {
+            url: urlBase + "/operation-costs/:id",
+            method: "DELETE",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#count
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Count instances of the model matched by where from the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `where` – `{object=}` - Criteria to match model instances
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * Data properties:
+           *
+           *  - `count` – `{number=}` -
+           */
+          "count": {
+            url: urlBase + "/operation-costs/count",
+            method: "GET",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#prototype$patchAttributes
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Patch attributes for a model instance and persist it into the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `data` – `{object=}` - An object of model property name/value pairs
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+          "prototype$patchAttributes": {
+            url: urlBase + "/operation-costs/:id",
+            method: "PATCH",
+          },
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#createChangeStream
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Create a change stream.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *   This method does not accept any parameters.
+           *   Supply an empty object or omit this argument altogether.
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * Data properties:
+           *
+           *  - `changes` – `{ReadableStream=}` -
+           */
+          "createChangeStream": {
+            url: urlBase + "/operation-costs/change-stream",
+            method: "POST",
+          },
+        }
+      );
+
+
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#upsert
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Patch an existing model instance or insert a new one into the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `data` – `{object=}` - Model instance data
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+      R["upsert"] = R["patchOrCreate"];
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#updateOrCreate
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Patch an existing model instance or insert a new one into the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `data` – `{object=}` - Model instance data
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+      R["updateOrCreate"] = R["patchOrCreate"];
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#patchOrCreateWithWhere
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Update an existing model instance or insert a new one into the data source based on the where criteria.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `where` – `{object=}` - Criteria to match model instances
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `data` – `{object=}` - An object of model property name/value pairs
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+      R["patchOrCreateWithWhere"] = R["upsertWithWhere"];
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#update
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Update instances of the model matched by {{where}} from the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `where` – `{object=}` - Criteria to match model instances
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `data` – `{object=}` - An object of model property name/value pairs
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * Information related to the outcome of the operation
+           */
+      R["update"] = R["updateAll"];
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#destroyById
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Delete a model instance by {{id}} from the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - Model id
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+      R["destroyById"] = R["deleteById"];
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#removeById
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Delete a model instance by {{id}} from the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - Model id
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+      R["removeById"] = R["deleteById"];
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#prototype$updateAttributes
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Patch attributes for a model instance and persist it into the data source.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `data` – `{object=}` - An object of model property name/value pairs
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `OperationCost` object.)
+           * </em>
+           */
+      R["prototype$updateAttributes"] = R["prototype$patchAttributes"];
+
+
+      /**
+      * @ngdoc property
+      * @name lbServices.OperationCost#modelName
+      * @propertyOf lbServices.OperationCost
+      * @description
+      * The name of the model represented by this $resource,
+      * i.e. `OperationCost`.
+      */
+      R.modelName = "OperationCost";
+
+  /**
+   * @ngdoc object
+   * @name lbServices.OperationCost.saleRecords
+   * @header lbServices.OperationCost.saleRecords
+   * @object
+   * @description
+   *
+   * The object `OperationCost.saleRecords` groups methods
+   * manipulating `SaleRecord` instances related to `OperationCost`.
+   *
+   * Call {@link lbServices.OperationCost#saleRecords OperationCost.saleRecords()}
+   * to query all related instances.
+   */
+
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost#saleRecords
+           * @methodOf lbServices.OperationCost
+           *
+           * @description
+           *
+           * Queries saleRecords of OperationCost.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `filter` – `{object=}` -
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Array.<Object>,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Array.<Object>} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `SaleRecord` object.)
+           * </em>
+           */
+      R.saleRecords = function() {
+        var TargetResource = $injector.get("SaleRecord");
+        var action = TargetResource["::get::OperationCost::saleRecords"];
+        return action.apply(R, arguments);
+      };
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost.saleRecords#count
+           * @methodOf lbServices.OperationCost.saleRecords
+           *
+           * @description
+           *
+           * Counts saleRecords of OperationCost.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `where` – `{object=}` - Criteria to match model instances
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * Data properties:
+           *
+           *  - `count` – `{number=}` -
+           */
+      R.saleRecords.count = function() {
+        var TargetResource = $injector.get("SaleRecord");
+        var action = TargetResource["::count::OperationCost::saleRecords"];
+        return action.apply(R, arguments);
+      };
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost.saleRecords#create
+           * @methodOf lbServices.OperationCost.saleRecords
+           *
+           * @description
+           *
+           * Creates a new instance in saleRecords of this model.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `data` – `{object=}` -
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `SaleRecord` object.)
+           * </em>
+           */
+      R.saleRecords.create = function() {
+        var TargetResource = $injector.get("SaleRecord");
+        var action = TargetResource["::create::OperationCost::saleRecords"];
+        return action.apply(R, arguments);
+      };
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost.saleRecords#createMany
+           * @methodOf lbServices.OperationCost.saleRecords
+           *
+           * @description
+           *
+           * Creates a new instance in saleRecords of this model.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `data` – `{object=}` -
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Array.<Object>,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Array.<Object>} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `SaleRecord` object.)
+           * </em>
+           */
+      R.saleRecords.createMany = function() {
+        var TargetResource = $injector.get("SaleRecord");
+        var action = TargetResource["::createMany::OperationCost::saleRecords"];
+        return action.apply(R, arguments);
+      };
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost.saleRecords#destroyAll
+           * @methodOf lbServices.OperationCost.saleRecords
+           *
+           * @description
+           *
+           * Deletes all saleRecords of this model.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `where` – `{object=}` -
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * This method returns no data.
+           */
+      R.saleRecords.destroyAll = function() {
+        var TargetResource = $injector.get("SaleRecord");
+        var action = TargetResource["::delete::OperationCost::saleRecords"];
+        return action.apply(R, arguments);
+      };
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost.saleRecords#destroyById
+           * @methodOf lbServices.OperationCost.saleRecords
+           *
+           * @description
+           *
+           * Delete a related item by id for saleRecords.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `fk` – `{*}` - Foreign key for saleRecords
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * This method returns no data.
+           */
+      R.saleRecords.destroyById = function() {
+        var TargetResource = $injector.get("SaleRecord");
+        var action = TargetResource["::destroyById::OperationCost::saleRecords"];
+        return action.apply(R, arguments);
+      };
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost.saleRecords#findById
+           * @methodOf lbServices.OperationCost.saleRecords
+           *
+           * @description
+           *
+           * Find a related item by id for saleRecords.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `fk` – `{*}` - Foreign key for saleRecords
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `SaleRecord` object.)
+           * </em>
+           */
+      R.saleRecords.findById = function() {
+        var TargetResource = $injector.get("SaleRecord");
+        var action = TargetResource["::findById::OperationCost::saleRecords"];
+        return action.apply(R, arguments);
+      };
+
+          /**
+           * @ngdoc method
+           * @name lbServices.OperationCost.saleRecords#updateById
+           * @methodOf lbServices.OperationCost.saleRecords
+           *
+           * @description
+           *
+           * Update a related item by id for saleRecords.
+           *
+           * @param {Object=} parameters Request parameters.
+           *
+           *  - `id` – `{*}` - OperationCost id
+           *
+           *  - `fk` – `{*}` - Foreign key for saleRecords
+           *
+           * @param {Object} postData Request data.
+           *
+           *  - `options` – `{object=}` -
+           *
+           *  - `data` – `{object=}` -
+           *
+           *  - `options` – `{object=}` -
+           *
+           * @param {function(Object,Object)=} successCb
+           *   Success callback with two arguments: `value`, `responseHeaders`.
+           *
+           * @param {function(Object)=} errorCb Error callback with one argument:
+           *   `httpResponse`.
+           *
+           * @returns {Object} An empty reference that will be
+           *   populated with the actual data once the response is returned
+           *   from the server.
+           *
+           * <em>
+           * (The remote method definition does not provide any description.
+           * This usually means the response is a `SaleRecord` object.)
+           * </em>
+           */
+      R.saleRecords.updateById = function() {
+        var TargetResource = $injector.get("SaleRecord");
+        var action = TargetResource["::updateById::OperationCost::saleRecords"];
+        return action.apply(R, arguments);
+      };
+
+
+      return R;
+    }]);
+
 
 /**
  * @ngdoc object

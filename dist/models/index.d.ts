@@ -5,3 +5,4 @@ export * from './product.model';
 export * from './cost-record.model';
 export * from './employee.model';
 export * from './work-log.model';
+export * from './operation-cost.model';

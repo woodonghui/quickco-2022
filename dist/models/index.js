@@ -8,4 +8,5 @@ const tslib_1 = require("tslib");
 (0, tslib_1.__exportStar)(require("./cost-record.model"), exports);
 (0, tslib_1.__exportStar)(require("./employee.model"), exports);
 (0, tslib_1.__exportStar)(require("./work-log.model"), exports);
+(0, tslib_1.__exportStar)(require("./operation-cost.model"), exports);
 //# sourceMappingURL=index.js.map

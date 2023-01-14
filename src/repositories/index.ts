@@ -5,3 +5,4 @@ export * from './product.repository';
 export * from './cost-record.repository';
 export * from './employee.repository';
 export * from './work-log.repository';
+export * from './operation-cost.repository';

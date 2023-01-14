@@ -9,7 +9,8 @@ async function migrate(args) {
     await app.boot();
     await app.migrateSchema({
         existingSchema,
-        models: ['Outlet', 'SaleRecord', 'Supplier', 'Product', 'CostRecord', 'Employee', 'WorkLog']
+        models: ['OperationCost']
+        // models: ['Outlet', 'SaleRecord', 'Supplier', 'Product', 'CostRecord', 'Employee', 'WorkLog']
     });
     //mysql --user=root --password quickco2022
     // show full columns from tablename
@@ -71,6 +72,18 @@ async function migrate(args) {
       outletid int NOT NULL,
       date datetime NOT NULL,
       worklog float NOT NULL,
+      PRIMARY KEY (id)
+    );
+  
+    CREATE TABLE OperationCost (
+      id int NOT NULL AUTO_INCREMENT,
+      outlet varchar(512) NOT NULL,
+      rental int NOT NULL,
+      levy int NOT NULL,
+      managementfee int NOT NULL,
+      salary int NOT NULL,
+      salaryshared int NOT NULL,
+      payoutratio float NOT NULL,
       PRIMARY KEY (id)
     );
   

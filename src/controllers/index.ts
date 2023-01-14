@@ -15,3 +15,4 @@ export * from './cost-record-sale-record.controller';
 export * from './work-log-employee.controller';
 export * from './work-log-outlet.controller';
 export * from './work-log-sale-record.controller';
+export * from './operation-cost.controller';

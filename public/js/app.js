@@ -83,6 +83,7 @@ app.controller('employeeController', function ($scope, $http, Employee) {
       id: $scope.employee.id,
       fullname: $scope.employee.fullname,
       nickname: $scope.employee.nickname,
+      outlet: $scope.employee.outlet,
       islive: $scope.employee.islive
     }).$promise.then(function () {
       $scope.employees = Employee.find();
@@ -147,6 +148,74 @@ app.controller('outletController', function ($scope, $http, Outlet) {
   }
 });
 
+app.controller('operationCostController', function ($scope, $http, OperationCost) {
+
+  $scope.operationCosts = OperationCost.find();
+  $scope.operationCost;
+  $scope.loading = false;
+
+  $scope.add = function () {
+    $scope.loading = true;
+
+    OperationCost.create({
+        outlet: $scope.operationCost.outlet,
+        rental: parseFloat($scope.operationCost.rental),
+        levy: parseFloat($scope.operationCost.levy),
+        managementfee: parseFloat($scope.operationCost.managementfee),
+        salary: parseFloat($scope.operationCost.salary),
+        salaryshared: parseFloat($scope.operationCost.salaryshared),
+        payoutratio: parseFloat($scope.operationCost.payoutratio),
+      }).$promise
+      .then(function (operationCost) {
+        $scope.operationCosts.push(operationCost);
+        $scope.operationCost.outlet = '';
+        $scope.operationCost.rental = '';
+        $scope.operationCost.levy = '';
+        $scope.operationCost.managementfee = '';
+        $scope.operationCost.salary = '';
+        $scope.operationCost.salaryshared = '';
+        $scope.operationCost.payoutratio = '';
+        $scope.loading = false;
+      });
+  };
+
+  $scope.delete = function ($index) {
+    $scope.loading = true;
+    var cost = $scope.operationCosts[$index];
+    OperationCost.deleteById({
+      id: cost.id
+    }).$promise.then(function () {
+      $scope.operationCosts.splice($index, 1);
+      $scope.loading = false;
+    });
+  };
+
+  $scope.edit = function ($index) {
+    $scope.loading = true;
+    var cost = $scope.operationCosts[$index];
+    OperationCost.findById({
+      id: cost.id
+    }).$promise.then(function (operationCost) {
+      $scope.operationCost = operationCost;
+      $scope.loading = false;
+    });
+  }
+
+  $scope.save = function () {
+    OperationCost.prototype$updateAttributes({
+      id: $scope.operationCost.id,
+      outlet: $scope.operationCost.outlet,
+      rental: parseFloat($scope.operationCost.rental),
+      levy: parseFloat($scope.operationCost.levy),
+      managementfee: parseFloat($scope.operationCost.managementfee),
+      salary: parseFloat($scope.operationCost.salary),
+      salaryshared: parseFloat($scope.operationCost.salaryshared),
+      payoutratio: parseFloat($scope.operationCost.payoutratio),
+    }).$promise.then(function () {
+      $scope.operationCosts = OperationCost.find();
+    });
+  }
+});
 
 app.controller('listSaleRecordController', function ($scope, $rootScope, $http, Outlet, SaleRecord, blockUI) {
   var today = new Date();
@@ -977,9 +1046,15 @@ app.controller('worklogController', function ($scope, $rootScope, $http, Outlet,
         }
       }
     }).$promise.then(function (employees) {
-      $scope.employees = employees;
-      for (var i = 0; i < employees.length; i++) {
-        var employee = employees[i];
+      var realm = localStorage.getItem('realm');
+      var role = localStorage.getItem('role');
+      var _employees = employees.filter(function(employee) {
+        if(role == 'admin') return true;
+        return realm.indexOf(employee.outlet) > -1;
+      });
+      $scope.employees = _employees;
+      for (var i = 0; i < _employees.length; i++) {
+        var employee = _employees[i];
         loadReport(employee);
       }
     });

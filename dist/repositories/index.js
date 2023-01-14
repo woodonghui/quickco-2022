@@ -8,4 +8,5 @@ const tslib_1 = require("tslib");
 (0, tslib_1.__exportStar)(require("./cost-record.repository"), exports);
 (0, tslib_1.__exportStar)(require("./employee.repository"), exports);
 (0, tslib_1.__exportStar)(require("./work-log.repository"), exports);
+(0, tslib_1.__exportStar)(require("./operation-cost.repository"), exports);
 //# sourceMappingURL=index.js.map
