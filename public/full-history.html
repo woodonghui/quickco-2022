@@ -107,7 +107,14 @@
                                         <h3>本月总出账：${{costTables[outlet.name].totalexpense | number: 2}}</h3>
                                         <h3>本月总货钱：${{costTables[outlet.name].totalcost | number: 2}}</h3>
                                         <h3>成本（货钱/收入）：{{costTables[outlet.name].cost}}%</h3>
-                                        <h3>本月总利润：${{costTables[outlet.name].totalincome - costTables[outlet.name].totalexpense | number: 2}}</h3>
+                                        <h3>本月毛利润：${{costTables[outlet.name].totalincome - costTables[outlet.name].totalexpense | number: 2}}</h3>
+                                        <hr>
+                                        <h3>租金水电：${{operationCosts[outlet.name].rental | number: 2}}</h3>
+                                        <h3>薪水+Levy：${{operationCosts[outlet.name].salary + operationCosts[outlet.name].levy | number: 2}}</h3>
+                                        <h3>跑场费：${{operationCosts[outlet.name].salaryshared | number: 2}}</h3>
+                                        <h3>管理费：${{operationCosts[outlet.name].managementfee | number: 2}}</h3>
+                                        <hr>
+                                        <h3>本月净利润：${{costTables[outlet.name].totalincome - costTables[outlet.name].totalexpense - operationCosts[outlet.name].rental - operationCosts[outlet.name].salary - operationCosts[outlet.name].levy - operationCosts[outlet.name].salaryshared - operationCosts[outlet.name].managementfee | number: 2}}</h3>
                                     </div>
                                 </div>
                             </div>
