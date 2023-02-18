@@ -241,13 +241,13 @@ app.controller('listSaleRecordController', function ($scope, $rootScope, $http, 
     var totalexpense = 0;
     var foodpandaincome = 0;
     var grabincome = 0;
-    // var honestbeeincome = 0;
+    var grabpay = 0;
     for (var i = 0; i < salerecords.length; i++) {
       var salerecord = salerecords[i];
       totalincome += salerecord.totalincome;
       foodpandaincome += salerecord.foodpandaincome;
       grabincome += salerecord.grabincome;
-      // honestbeeincome += salerecord.honestbeeincome;
+      grabpay += salerecord.grabpay;
       if(salerecord.costRecords) {
         for (var j = 0; j < salerecord.costRecords.length; j++) {
           var costRecord = salerecord.costRecords[j];
@@ -266,7 +266,7 @@ app.controller('listSaleRecordController', function ($scope, $rootScope, $http, 
         totalcost: 0,
         foodpandaincome: 0,
         grabincome: 0,
-        // honestbeeincome: 0,
+        grabpay: 0,
         cost: 0
       };
     }
@@ -277,7 +277,7 @@ app.controller('listSaleRecordController', function ($scope, $rootScope, $http, 
       totalcost: parseFloat(totalcost.toFixed(2)),
       foodpandaincome: parseFloat(foodpandaincome.toFixed(2)),
       grabincome: parseFloat(grabincome.toFixed(2)),
-      // honestbeeincome: parseFloat(honestbeeincome.toFixed(2)),
+      grabpay: parseFloat(grabpay.toFixed(2)),
       cost: parseFloat((100 * totalcost / totalincome).toFixed(2))
     };
   }
