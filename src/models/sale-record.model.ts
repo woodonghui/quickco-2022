@@ -1,4 +1,4 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {CostRecord} from './cost-record.model';
 
 @model()
@@ -52,6 +52,14 @@ export class SaleRecord extends Entity {
     }
   })
   grabpay?: number;
+
+  @property({
+    type: 'number',
+    mysql: {
+      dataType: 'float'
+    }
+  })
+  cdcincome?: number;
 
   @hasMany(() => CostRecord, {keyTo: 'salerecordid'})
   costRecords: CostRecord[];

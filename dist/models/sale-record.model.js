@@ -68,6 +68,15 @@ let SaleRecord = class SaleRecord extends repository_1.Entity {
     (0, tslib_1.__metadata)("design:type", Number)
 ], SaleRecord.prototype, "grabpay", void 0);
 (0, tslib_1.__decorate)([
+    (0, repository_1.property)({
+        type: 'number',
+        mysql: {
+            dataType: 'float'
+        }
+    }),
+    (0, tslib_1.__metadata)("design:type", Number)
+], SaleRecord.prototype, "cdcincome", void 0);
+(0, tslib_1.__decorate)([
     (0, repository_1.hasMany)(() => cost_record_model_1.CostRecord, { keyTo: 'salerecordid' }),
     (0, tslib_1.__metadata)("design:type", Array)
 ], SaleRecord.prototype, "costRecords", void 0);
